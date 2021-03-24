@@ -6,6 +6,7 @@
 #include <QKeyEvent>
 #include <QPainter>
 #include <QFileDialog>
+#include <QColorDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Painter; }
@@ -33,7 +34,7 @@ private:
     void setLinePaintMode();
     void setElipsePaintMode();
     void setSquarePaintMode();
-    void setFillPaintMode();
+    void changeFillColor();
     void changePaintingColor();
     void savePicture();
     void loadPicture();
@@ -42,6 +43,7 @@ private:
 
     Ui::Painter *ui;
     QImage image, tempImage;
+    QColor color, colorFill;
 
     // 1 - free
     // 2 - line

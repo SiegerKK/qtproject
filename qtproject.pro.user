@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.13.1, 2021-03-24T12:14:25. -->
+<!-- Written by QtCreator 4.13.1, 2021-03-24T21:49:28. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -323,9 +323,8 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">zadanie3_22</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/Users/kyrylokhloponin/studia/stopien2/sem1/programowanie wiloplatformowe/zadanie4/zadanie3_2.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/Users/kyrylokhloponin/studia/stopien2/sem1/programowanie wiloplatformowe/zadanie4/zadanie3_2.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/Users/kyrylokhloponin/studia/stopien2/sem1/programowanie wiloplatformowe/qtproject/qtproject.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/Users/kyrylokhloponin/studia/stopien2/sem1/programowanie wiloplatformowe/qtproject/qtproject.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -337,7 +336,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/kyrylokhloponin/studia/stopien2/sem1/programowanie wiloplatformowe/build-zadanie3_2-Desktop_Qt_5_12_10_clang_64bit-Debug/zadanie3_2.app/Contents/MacOS</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/kyrylokhloponin/studia/stopien2/sem1/programowanie wiloplatformowe/build-zadanie3_2-Desktop_Qt_5_12_10_clang_64bit-Debug/qtproject.app/Contents/MacOS</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

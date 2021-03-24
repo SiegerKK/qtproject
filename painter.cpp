@@ -44,20 +44,27 @@ void Painter::keyPressEvent(QKeyEvent *event){
         case Qt::Key_O:
             loadPicture();
             break;
+        case Qt::Key_W:
+            changePaintingColor();
+            break;
+        case Qt::Key_K:
+            changeFillColor();
+            break;
     }
-//    void setFillPaintMode();
-//    void changePaintingColor();
 }
 
 void Painter::mousePressEvent(QMouseEvent *event){
     if(lastKnownPosition != 0) delete lastKnownPosition;
     lastKnownPosition = new QPoint(event->x(), event->y());
 
-    if(paintMode == 2 || paintMode == 3 || paintMode == 4) tempImage = image;
+    if(paintMode == 2 || paintMode == 3 || paintMode == 4)
+        tempImage = image;
 }
 
 void Painter::mouseMoveEvent(QMouseEvent *event){
     QPainter painter(&image);
+    painter.setPen(color);
+    painter.setBrush(colorFill);
     switch(paintMode){
         case 1:
             painter.drawLine(lastKnownPosition->rx(),
@@ -100,23 +107,7 @@ void Painter::mouseMoveEvent(QMouseEvent *event){
     }
 }
 
-void Painter::mouseReleaseEvent(QMouseEvent *event){
-    QPainter painter(&image);
-    switch(paintMode){
-        case 1: break;
-        case 2:
-            painter.drawLine(lastKnownPosition->rx(),
-                             lastKnownPosition->ry(),
-                             event->x(),
-                             event->y());
-            update();
-
-            if(lastKnownPosition != 0) delete lastKnownPosition;
-            lastKnownPosition = new QPoint(event->x(), event->y());
-
-            break;
-    }
-}
+void Painter::mouseReleaseEvent(QMouseEvent *event){}
 
 void Painter::paintEvent(QPaintEvent *event){
     QPainter painter(this);
@@ -136,6 +127,14 @@ void Painter::setSquarePaintMode(){
     paintMode = 4;
 }
 
+void Painter::changeFillColor(){
+    colorFill = QColorDialog::QColorDialog::getColor();
+}
+
+void Painter::changePaintingColor(){
+    color = QColorDialog::QColorDialog::getColor();
+}
+
 void Painter::savePicture(){
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save Image File"),
                                                     QString(),
@@ -148,15 +147,13 @@ void Painter::loadPicture(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image File"),
                                                     QString(),
                                                     tr("Images (*.png)"));
-
     tempImage.load(fileName);
     rewritePictureFromBackup();
 }
 
 void Painter::rewritePictureFromBackup(){
-    for (int y = 0; y < image.height(); y++){
+    for (int y = 0; y < image.height(); y++)
         memcpy(image.scanLine(y), tempImage.scanLine(y), image.bytesPerLine());
-    }
 }
 
 
