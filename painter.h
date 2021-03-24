@@ -5,6 +5,7 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QPainter>
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Painter; }
@@ -28,11 +29,24 @@ protected:
     void paintEvent(QPaintEvent *event);
 
 private:
+    void setFreePaintMode();
+    void setLinePaintMode();
+    void setElipsePaintMode();
+    void setSquarePaintMode();
+    void setFillPaintMode();
+    void changePaintingColor();
+    void savePicture();
+    void loadPicture();
+
+    void rewritePictureFromBackup();
+
     Ui::Painter *ui;
     QImage image, tempImage;
 
     // 1 - free
     // 2 - line
+    // 3 - elipse
+    // 4 - square
     int paintMode = 1;
     QPoint *lastKnownPosition = 0;
 
