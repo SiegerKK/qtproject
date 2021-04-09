@@ -10,15 +10,23 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
+    mainwindow.cpp \
+    newfiledialog.cpp \
     painter.cpp
 
 HEADERS += \
+    mainwindow.h \
+    newfiledialog.h \
     painter.h
 
 FORMS += \
-    painter.ui
+    mainwindow.ui \
+    newfiledialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    icons.qrc

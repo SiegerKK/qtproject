@@ -18,8 +18,20 @@ class Painter : public QWidget
 
 public:
 
-    Painter(QWidget *parent = nullptr);
+//    Painter(QWidget *parent = nullptr);
+    Painter(QWidget *parent = nullptr, int width = 500, int height = 500);
     ~Painter();
+
+    void clear();
+    void setFreePaintMode();
+    void setLinePaintMode();
+    void setElipsePaintMode();
+    void setRectPaintMode();
+    void changeFillColor();
+    void changePaintingColor();
+    void savePicture();
+    void savePictureAs();
+    void loadPicture();
 
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -30,20 +42,12 @@ protected:
     void paintEvent(QPaintEvent *event);
 
 private:
-    void setFreePaintMode();
-    void setLinePaintMode();
-    void setElipsePaintMode();
-    void setSquarePaintMode();
-    void changeFillColor();
-    void changePaintingColor();
-    void savePicture();
-    void loadPicture();
-
     void rewritePictureFromBackup();
 
     Ui::Painter *ui;
     QImage image, tempImage;
     QColor color, colorFill;
+    QString fileName;
 
     // 1 - free
     // 2 - line

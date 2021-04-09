@@ -1,14 +1,12 @@
 #include "painter.h"
-#include "ui_painter.h"
+//#include "ui_painter.h"
 
 #include <iostream>
 
-Painter::Painter(QWidget *parent)
+Painter::Painter(QWidget *parent, int width, int height)
     : QWidget(parent)
-    , ui(new Ui::Painter)
-    , image(500, 500, QImage::Format_RGB32)
+    , image(width, height, QImage::Format_RGB32)
 {
-    ui->setupUi(this);
     image.fill(Qt::white);
     tempImage = image;
     lastKnownPosition = new QPoint(0, 0);
@@ -17,7 +15,6 @@ Painter::Painter(QWidget *parent)
 
 Painter::~Painter(){
     delete lastKnownPosition;
-    delete ui;
 }
 
 // 1 - free
@@ -25,32 +22,32 @@ Painter::~Painter(){
 // 3 - elipse
 // 4 - square
 void Painter::keyPressEvent(QKeyEvent *event){
-    switch(event->key()){
-        case Qt::Key_F:
-            setFreePaintMode();
-            break;
-        case Qt::Key_L:
-            setLinePaintMode();
-            break;
-        case Qt::Key_E:
-            setElipsePaintMode();
-            break;
-        case Qt::Key_P:
-            setSquarePaintMode();
-            break;
-        case Qt::Key_S:
-            savePicture();
-            break;
-        case Qt::Key_O:
-            loadPicture();
-            break;
-        case Qt::Key_W:
-            changePaintingColor();
-            break;
-        case Qt::Key_K:
-            changeFillColor();
-            break;
-    }
+//    switch(event->key()){
+//        case Qt::Key_F:
+//            setFreePaintMode();
+//            break;
+//        case Qt::Key_L:
+//            setLinePaintMode();
+//            break;
+//        case Qt::Key_E:
+//            setElipsePaintMode();
+//            break;
+//        case Qt::Key_P:
+//            setSquarePaintMode();
+//            break;
+//        case Qt::Key_S:
+//            savePicture();
+//            break;
+//        case Qt::Key_O:
+//            loadPicture();
+//            break;
+//        case Qt::Key_W:
+//            changePaintingColor();
+//            break;
+//        case Qt::Key_K:
+//            changeFillColor();
+//            break;
+//    }
 }
 
 void Painter::mousePressEvent(QMouseEvent *event){
@@ -123,7 +120,7 @@ void Painter::setLinePaintMode(){
 void Painter::setElipsePaintMode(){
     paintMode = 3;
 }
-void Painter::setSquarePaintMode(){
+void Painter::setRectPaintMode(){
     paintMode = 4;
 }
 
@@ -135,20 +132,27 @@ void Painter::changePaintingColor(){
     color = QColorDialog::QColorDialog::getColor();
 }
 
-void Painter::savePicture(){
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Image File"),
+void Painter::savePictureAs(){
+    fileName = QFileDialog::getSaveFileName(this, tr("Save Image File"),
                                                     QString(),
                                                     tr("Images (*.png)"));
     if (!fileName.isEmpty())
         image.save(fileName);
 }
+void Painter::savePicture(){
+    if (!fileName.isEmpty())
+        image.save(fileName);
+}
 
 void Painter::loadPicture(){
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image File"),
+    fileName = QFileDialog::getOpenFileName(this, tr("Open Image File"),
                                                     QString(),
                                                     tr("Images (*.png)"));
-    tempImage.load(fileName);
-    rewritePictureFromBackup();
+
+    if(!fileName.isEmpty()&& !fileName.isNull()){
+        tempImage.load(fileName);
+        rewritePictureFromBackup();
+    }
 }
 
 void Painter::rewritePictureFromBackup(){
@@ -156,16 +160,9 @@ void Painter::rewritePictureFromBackup(){
         memcpy(image.scanLine(y), tempImage.scanLine(y), image.bytesPerLine());
 }
 
-
-
-//+przerobić obsługę zdarzeń przyciśnięcia klawisza na klawiaturze powiązanych z wyborem trybu rysowania - w momencie przyciśnięcia
-//    klawisza ma być uruchamiana odpowiednia metoda, która jednocześnie będzie slotem. W tym momencie może się wydawać trochę
-//    bez sensu - ponieważ w tej metodzie (slocie) będzie tylko zmiana jednego atrybutu klasy (np. tryb='l'), ale na przyszłych
-//    zajęciach będziemy te tryby wywoływać w inny sposób (np. z menu) i pisząc, od tej pory, kod w ten sposób będzie mniej przerabiania później.
-//+dodać możliwość rysowania elips (klawisz e - oczywiście odrębna metoda/slot) - patrz dokumentacja do klasy QPainter - metoda drawEclipse
-//+dodać możliwość rysowania prostokątów (klawisz p - oczywiście odrębna metoda/slot)
-//+zapis tworzonego rysunku do pliku graficznego z wykorzystaniem standardowego okina dialogowego wyboru pliku - (metoda getSaveFileName)
-//+odczyt tworzonego rysunku z pliku graficznego z wykorzystaniem standardowego okna dialogowego wyboru pliku (metoda getOpenFileName)
-//dodać możliwość zmiany koloru pióra rysowanych elementów (klawisz w - patrzy wyżej)  z wykorzystniem standardowego okna dialogowego do wyboru koloru
-//dodać możliwość zmiany koloru wypełnienia rysowanych elementów (klawisz k - patrzy wyżej)
-
+void Painter::clear(){
+//    tempImage = QImage(500, 500, QImage::Format_RGB32);
+    tempImage.fill(Qt::white);
+    rewritePictureFromBackup();
+    update();
+}
